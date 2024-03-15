@@ -66,10 +66,61 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
+	<style>
+		.blur-background {
+			backdrop-filter: blur(50px);
+			/* Aplica un efecto de desenfoque al fondo */
+		}
+	</style>
 </head>
 
 <body>
+
+	<!-- Modal -->
+	<div class="modal fade blur-background" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="codeModalLabel"
+		aria-hidden="true" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="codeModalLabel">HOLA MI AMOOOOR</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					¡Bienvenida!.. Antes de poder ver lo que te hice, tendrás que pasar un reto, si lo logras,
+					conseguirás un código que te ayudará a ver el contenido de esta página... <br><br>
+					Si consigues el código, por favor, ingrésalo en este campo... ¡Ánimo! ❤: <br>
+				</div>
+				<div class="modal-body">
+					<form id="codeForm">
+						<div class="form-group">
+							<label for="code" class="col-form-label">Código:</label>
+							<input type="text" class="form-control" id="code">
+						</div>
+						<span id="errorMessage" style="color: red; display: none;">¡Código incorrecto!</span>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success text-left" id="goToGame" onclick="window.location.href = 'breakout.html';">Ir al reto</button>
+					<button type="submit" class="btn btn-danger" id="validarBtn">Validar código</button>
+				</div>
+				<script>
+
+					document.getElementById('validarBtn').addEventListener('click', function () {
+						var input = document.getElementById('code');
+						var valorInput = input.value;
+
+						if (valorInput === "16-03-2024-D&A") {
+							$('#codeModal').modal('hide'); // Cerrar el modal si el valor es correcto
+						} else {
+							document.getElementById('errorMessage').style.display = 'block'; // Mostrar mensaje de error
+						}
+					});
+				</script>
+			</div>
+		</div>
+	</div>
 
 	<div class="fh5co-loader"></div>
 
@@ -646,51 +697,53 @@
 
 		<div id="fh5co-services" class="fh5co-section-gray">
 			<div class="container" id="videos">
-				
+
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 						<h2>Vídeos con algunos de nuestros recuerdos</h2>
 						<p>Por cierto, cuando nos veamos nuevamente, hay que tomarnos más fotos y grabar más.</p>
 					</div>
 				</div>
-	
+
 				<div class="col-md-6 animate-box">
 					<div class="fh5co-video fh5co-bg" style="background-image: url(images/1.jpeg); ">
 						<a href="images/video2.mp4" class="popup-vimeo"><i class="icon-video2"></i></a>
 						<div class="overlay"></div>
 					</div>
 				</div>
-	
-					<div class="col-md-6 animate-box">
-						<div class="fh5co-video fh5co-bg" style="background-image: url(images/5.jpeg); ">
-							<a href="images/video.mp4" class="popup-vimeo"><i class="icon-video2"></i></a>
-							<div class="overlay"></div>
-						</div>
+
+
+				<div class="col-md-6 animate-box">
+					<div class="fh5co-video fh5co-bg" style="background-image: url(images/5.jpeg); ">
+						<a href="images/video.mp4" class="popup-vimeo"><i class="icon-video2"></i></a>
+						<div class="overlay"></div>
 					</div>
 				</div>
-	
-				
+
 			</div>
+
+
 		</div>
+	</div>
 
 
-		<div id="fh5co-started" class="fh5co-bg" style="background-image:url(images/img_bg_4.jpg);">
-			<div class="overlay"></div>
-			<div class="container">
-				<div class="row animate-box">
-					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<h2>¿Parte 2?</h2>
-						<p>Proximamente...</p>
-					</div>
+	<div id="fh5co-started" class="fh5co-bg" style="background-image:url(images/img_bg_4.jpg);">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>¿Parte 2?</h2>
+					<p>Proximamente...</p>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<footer id="fh5co-footer" role="contentinfo">
-			<div class="container">
+	<footer id="fh5co-footer" role="contentinfo">
+		<div class="container">
 
-			</div>
-		</footer>
+		</div>
+	</footer>
 	</div>
 
 	<div class="gototop js-top">
@@ -738,6 +791,10 @@
 			day: d.getDate(),
 			enableUtc: false
 		});
+
+		// Mostrar modal
+		$('#codeModal').modal('show');
+
 	</script>
 
 </body>
