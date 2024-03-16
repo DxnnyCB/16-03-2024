@@ -374,9 +374,23 @@
     }
 
 
+    // Escuchar eventos de teclado para mover la paleta
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'a' || e.key === 'A') { // Cambiar de 37 (izquierda) a 'A' o 'a'
+        paddle.dx = -3;
+      }
+      else if (e.key === 'd' || e.key === 'D') { // Cambiar de 39 (derecha) a 'D' o 'd'
+        paddle.dx = 3;
+      }
+      if (ball.dx === 0 && ball.dy === 0 && e.which === 32) {
+        ball.dx = ball.speed;
+        ball.dy = ball.speed;
+      }
+    });
+
     // Escuchar eventos de teclado para detener la paleta si se suelta la tecla
     document.addEventListener('keyup', function (e) {
-      if (e.which === 37 || e.which === 39) {
+      if ((e.key === 'a' || e.key === 'A') || (e.key === 'd' || e.key === 'D')) { // Cambiar de 37, 39 a 'A', 'a', 'D', 'd'
         paddle.dx = 0;
       }
     });
