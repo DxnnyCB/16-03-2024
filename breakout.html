@@ -361,6 +361,22 @@
       }
     }
 
+    // Escuchar eventos del mouse para mover la paleta
+    canvas.addEventListener('mousemove', function (e) {
+      // Calcular la posición relativa del mouse dentro del lienzo
+      const relativeX = e.clientX - canvas.offsetLeft;
+
+      // Centrar la paleta en la posición del mouse
+      paddle.x = relativeX - paddle.width / 2;
+
+      // Evitar que la paleta se salga del lienzo
+      if (paddle.x < wallSize) {
+        paddle.x = wallSize;
+      } else if (paddle.x + paddle.width > canvasWidth - wallSize) {
+        paddle.x = canvasWidth - wallSize - paddle.width;
+      }
+    });
+
     // Eliminar un corazón cuando pierde
     function loseLife() {
       life--;
