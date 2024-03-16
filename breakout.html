@@ -19,10 +19,39 @@
       align-items: center;
       justify-content: center;
     }
+
+    #heart-container {
+      position: absolute;
+      /* Posicionamiento absoluto */
+      top: 20px;
+      /* Ajusta la distancia desde la parte superior */
+      display: flex;
+      align-items: center;
+      /* Alinea el texto y los corazones verticalmente */
+    }
+
+    .heart {
+      color: red;
+      /* Cambia el color del corazón a rojo */
+      font-size: 70px;
+      /* Ajusta el tamaño del corazón */
+    }
+
+    #life-text {
+      color: white;
+      /* Cambia el color del texto a blanco */
+      font-size: 20px;
+      /* Ajusta el tamaño del texto */
+      margin-right: 10px;
+      /* Añade un espacio entre el texto y los corazones */
+    }
   </style>
 </head>
 
 <body>
+  <div id="heart-container">
+    <span id="life-text">Número de vidas:</span> <!-- Texto para mostrar el número de vidas -->
+  </div>
   <canvas width="800" height="600" id="game"></canvas>
 
   <!-- Modal -->
@@ -40,14 +69,16 @@
           ¡Has perdido, mi amooor!.. Inténtalo nuevamente ¡Tú puedes!
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" id="restartButton">Reinicia el juego</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="restartButton">Reinicia el
+            juego</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Alerta de victoria -->
-  <div class="modal fade" id="gameWonModal" tabindex="-1" role="dialog" aria-labelledby="gameWonModalLabel" aria-hidden="true">
+  <div class="modal fade" id="gameWonModal" tabindex="-1" role="dialog" aria-labelledby="gameWonModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -60,12 +91,13 @@
           ¡Has ganado, amooor! El código es el siguiente: <p style="color:#FF0000">"16-03-2024-D&A"</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" id="goToIndexButton" onclick="window.location.href = 'index.html';">Ver contenido</button>
+          <button type="button" class="btn btn-success" id="goToIndexButton"
+            onclick="window.location.href = 'index.html';">Ver contenido</button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <script>
     const canvas = document.getElementById('game');
     const context = canvas.getContext('2d');
@@ -83,11 +115,15 @@
     const wallSize = 20;
 
     // Define el tamaño de la paleta
-    const paddleWidth = 152;
+    const paddleWidth = 163;
     const paddleHeight = 30;
 
     // Define el decremento de la paleta
     const paddleWithDecrement = 1;
+
+    // Definir variable life (vidas del juego) y valor inicial
+    const initialLifeValue = 1;
+    var life = 1;
 
     // Posición inicial de la paleta
     var paddle = {
@@ -125,10 +161,10 @@
 
     // Crea un mapeo entre el código de color (R, O, G, Y) y el nombre del color
     const colorMap = {
-      'R': 'red',
-      'O': 'green',
-      'B': 'blue',
-      'Y': 'yellow'
+      'R': '#42115E',
+      'O': '#8D36C0',
+      'B': '#A06AC0',
+      'Y': '#AF91C0'
     };
 
     // Crea una matriz de ladrillos
@@ -191,12 +227,9 @@
         ball.dy *= -1;
       }
 
-      // Reiniciar la pelota si se va por debajo de la pantalla
+      // Reiniciar la pelota si se va por debajo de la pantalla y perdió todas las vidas
       if (ball.y > canvasHeight) {
-        // Mostrar modal de Game Over
-        $('#gameOverModal').modal('show');
-        resetGame();
-
+        loseLife()
       }
 
       // Reiniciar la pelota si se va por debajo de la pantalla
@@ -232,7 +265,7 @@
       }
 
       // Dibujar muros
-      context.fillStyle = 'lightgrey';
+      context.fillStyle = '#B362E1';
       context.fillRect(0, 0, canvasWidth, wallSize);
       context.fillRect(0, 0, wallSize, canvasHeight);
       context.fillRect(canvasWidth - wallSize, 0, wallSize, canvasHeight);
@@ -249,7 +282,7 @@
       });
 
       // Dibujar paleta
-      context.fillStyle = 'cyan';
+      context.fillStyle = '#B362E1';
       context.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
 
       // Verificar si todos los ladrillos han sido eliminados
@@ -303,6 +336,41 @@
           });
         }
       }
+
+      // Reestablecer los corazones
+      life = initialLifeValue;
+      updateHearts();
+    }
+
+    // Actualizar los corazones
+    function updateHearts() {
+      const heartContainer = document.getElementById('heart-container');
+      heartContainer.innerHTML = ''; // Limpiar corazones anteriores
+
+      // Agregar texto de vidas
+      const lifeText = document.createElement('span');
+      lifeText.id = 'life-text';
+      lifeText.textContent = 'Número de vidas:';
+      heartContainer.appendChild(lifeText);
+
+      for (let i = 0; i < life; i++) {
+        const heartIcon = document.createElement('span');
+        heartIcon.classList.add('heart');
+        heartIcon.innerHTML = '&hearts;';
+        heartContainer.appendChild(heartIcon);
+      }
+    }
+
+    // Eliminar un corazón cuando pierde
+    function loseLife() {
+      life--;
+      const heartContainer = document.getElementById('heart-container');
+      heartContainer.removeChild(heartContainer.lastChild); // Eliminar el último corazón
+      if (life === 0) {
+        // Mostrar modal de Game Over
+        $('#gameOverModal').modal('show');
+        resetGame();
+      }
     }
 
 
@@ -313,7 +381,8 @@
       }
     });
 
-    
+    // Llamar a la función para mostrar los corazones inicialmente
+    updateHearts();
     // Iniciar el juego
     requestAnimationFrame(loop);
   </script>
