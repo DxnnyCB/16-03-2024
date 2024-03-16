@@ -362,7 +362,7 @@
     }
 
     // Escuchar eventos del mouse para mover la paleta
-    canvas.addEventListener('mousemove', function (e) {
+    document.addEventListener('mousemove', function (e) {
       // Calcular la posición relativa del mouse dentro del lienzo
       const relativeX = e.clientX - canvas.offsetLeft;
 
