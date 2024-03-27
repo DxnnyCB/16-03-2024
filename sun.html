@@ -8,7 +8,7 @@
         margin: 0; /* Elimina los márgenes predeterminados del body */
     }
 
-    @keyframes moonRotation {
+    @keyframes sunRotation {
         0% {
             background-position: 0% 0%;
             border: 0px solid #00000000;
@@ -25,7 +25,7 @@
         }
     }
 
-    .moon-background {
+    .sun-background {
         top: 50%; /* Centrar verticalmente */
         left: 50%; /* Centrar horizontalmente */
         transform: translate(-50%, -50%); /* Ajuste para centrado absoluto */
@@ -38,13 +38,16 @@
         background-repeat: repeat-x;
         background-size: 110% 100%;
         opacity: 1;
-        animation-name: moonRotation;
+        animation-name: sunRotation;
         animation-duration: 15s;
         animation-timing-function: linear;
         animation-iteration-count: infinite;
         animation-fill-mode: forwards !important;
-        box-shadow: inset -10px 8px 6px -5px #ffffff,
-            inset 20px -20px 40px 30px rgba(0, 0, 0, 0.9), 7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+        box-shadow: 
+            0px 0px 40px 20px rgba(255, 0, 0, 0.5), /* Rojo */
+            0px 0px 60px 30px rgba(255, 215, 0, 0.5), /* Oro */
+            0px 0px 80px 40px rgba(255, 255, 0, 0.5), /* Amarillo */
+            0px 0px 100px 50px rgba(255, 255, 255, 0.5); /* Blanco */
     }
 
     /* Estilos para las estrellas */
@@ -95,5 +98,5 @@
     </script>
 </div>
 
-<!-- Luna -->
-<div class="moon-background"></div>
+<!-- Sol -->
+<div class="sun-background"></div>
