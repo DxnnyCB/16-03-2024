@@ -53,10 +53,17 @@
 <body>
     <h1>Feliz cumpleaños</h1>
     <h2>MI AMOOOOOOR</h2>
-    <audio src="music/tu_cumpleaños.mp3" controls autoplay>
+    <audio id="my_audio" src="music/tu_cumpleaños.mp3" controls autoplay>
     </audio>
     <canvas id="birthday"></canvas>
     <script src="js/happy_birthday.js"></script>
+    <script>
+        // Obtener el elemento de audio por su ID
+        var audio = document.getElementById("my_audio");
+
+        // Establecer el volumen (valor entre 0 y 1)
+        audio.volume = 0.5; // Establece el volumen al 50%
+    </script>
 </body>
 
 </html>
