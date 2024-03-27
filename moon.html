@@ -1,0 +1,99 @@
+<style>
+    body {
+        font-family: system-ui;
+        background: #000;
+        color: white;
+        text-align: center;
+        overflow: hidden; /* Evita el desplazamiento horizontal */
+        margin: 0; /* Elimina los márgenes predeterminados del body */
+    }
+
+    @keyframes moonRotation {
+        0% {
+            background-position: 0% 0%;
+            border: 0px solid #00000000;
+        }
+
+        50% {
+            background-position: 150% 0%;
+            border: 0px solid #00000000;
+        }
+
+        100% {
+            background-position: 300% 0%;
+            border: 0px solid #00000000;
+        }
+    }
+
+    .moon-background {
+        top: 50%; /* Centrar verticalmente */
+        left: 50%; /* Centrar horizontalmente */
+        transform: translate(-50%, -50%); /* Ajuste para centrado absoluto */
+        display: block;
+        width: 30rem; /* Tamaño de la luna */
+        height: 30rem; /* Tamaño de la luna */
+        position: absolute;
+        border-radius: 50%;
+        background-image: url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg');
+        background-repeat: repeat-x;
+        background-size: 110% 100%;
+        opacity: 1;
+        animation-name: moonRotation;
+        animation-duration: 15s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards !important;
+        box-shadow: inset -10px 8px 6px -5px #ffffff,
+            inset 20px -20px 40px 30px rgba(0, 0, 0, 0.9), 7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+    }
+
+    /* Estilos para las estrellas */
+    .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Coloca las estrellas detrás del contenido */
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 1s infinite alternate;
+    }
+
+    /* Animación de parpadeo */
+    @keyframes twinkle {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<!-- Contenedor de estrellas -->
+<div class="stars">
+    <!-- Generar estrellas -->
+    <!-- Cambia el valor de "numStars" según la cantidad de estrellas que desees -->
+    <!-- Cuanto mayor sea el valor, más estrellas habrá -->
+    <script>
+        const numStars = 1000; // Ajusta el número de estrellas
+        const starsContainer = document.querySelector('.stars');
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</div>
+
+<!-- Luna -->
+<div class="moon-background"></div>
