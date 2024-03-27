@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feliz cumpleaños</title>
+    <style>
+        body {
+            margin: 0;
+            background: #020202;
+            cursor: crosshair;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        canvas {
+            display: block
+        }
+
+        h1,
+        h2 {
+            position: absolute;
+            color: #F4F5F7;
+            font-family: "Impact,Charcoal,sans-serif";
+            font-size: 5em;
+            font-weight: 800;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: center;
+        }
+
+        h1 {
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h2 {
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .spotify-container {
+            border-radius: 4px;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Feliz cumpleaños</h1>
+    <h2>MI AMOOOOOOR</h2>
+    <audio src="music/tu_cumpleaños.mp3" controls autoplay>
+    </audio>
+    <canvas id="birthday"></canvas>
+    <script src="js/happy_birthday.js"></script>
+</body>
+
+</html>
