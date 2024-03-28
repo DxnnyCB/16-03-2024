@@ -1,99 +1,246 @@
-<style>
-    body {
-        font-family: system-ui;
-        background: #000;
-        color: white;
-        text-align: center;
-        overflow: hidden; /* Evita el desplazamiento horizontal */
-        margin: 0; /* Elimina los márgenes predeterminados del body */
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    @keyframes moonRotation {
-        0% {
-            background-position: 0% 0%;
-            border: 0px solid #00000000;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Animation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Workbench&display=swap');
+        body {
+            font-family: system-ui;
+            background: #000;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            /* Evita el desplazamiento horizontal */
+            margin: 0;
+            /* Elimina los márgenes predeterminados del body */
         }
 
-        50% {
-            background-position: 150% 0%;
-            border: 0px solid #00000000;
+        @keyframes moonRotation {
+            0% {
+                background-position: 0% 0%;
+                border: 0px solid #00000000;
+            }
+
+            50% {
+                background-position: 150% 0%;
+                border: 0px solid #00000000;
+            }
+
+            100% {
+                background-position: 300% 0%;
+                border: 0px solid #00000000;
+            }
         }
 
-        100% {
-            background-position: 300% 0%;
-            border: 0px solid #00000000;
-        }
-    }
-
-    .moon-background {
-        top: 50%; /* Centrar verticalmente */
-        left: 50%; /* Centrar horizontalmente */
-        transform: translate(-50%, -50%); /* Ajuste para centrado absoluto */
-        display: block;
-        width: 30rem; /* Tamaño de la luna */
-        height: 30rem; /* Tamaño de la luna */
-        position: absolute;
-        border-radius: 50%;
-        background-image: url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg');
-        background-repeat: repeat-x;
-        background-size: 110% 100%;
-        opacity: 1;
-        animation-name: moonRotation;
-        animation-duration: 15s;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        animation-fill-mode: forwards !important;
-        box-shadow: inset -10px 8px 6px -5px #ffffff,
-            inset 20px -20px 40px 30px rgba(0, 0, 0, 0.9), 7px -6px 14px rgba(255, 255, 255, 0.3215686275);
-    }
-
-    /* Estilos para las estrellas */
-    .stars {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1; /* Coloca las estrellas detrás del contenido */
-    }
-
-    .star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: #E5CDF2;
-        border-radius: 50%;
-        animation: twinkle 1s infinite alternate;
-    }
-
-    /* Animación de parpadeo */
-    @keyframes twinkle {
-        from {
-            opacity: 0;
-        }
-        to {
+        .moon-background {
+            top: 50%;
+            /* Centrar verticalmente */
+            left: 50%;
+            /* Centrar horizontalmente */
+            transform: translate(-50%, -50%);
+            /* Ajuste para centrado absoluto */
+            display: block;
+            width: 30rem;
+            /* Tamaño de la luna */
+            height: 30rem;
+            /* Tamaño de la luna */
+            position: absolute;
+            border-radius: 50%;
+            background-image: url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg');
+            background-repeat: repeat-x;
+            background-size: 110% 100%;
             opacity: 1;
+            animation-name: moonRotation;
+            animation-duration: 15s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            /* Repetir la animación continuamente */
+            animation-fill-mode: forwards;
+            /* Mantener el estado final */
+            filter: brightness(0.3);
+            /* Establecer el brillo inicial */
         }
-    }
-</style>
 
-<!-- Contenedor de estrellas -->
-<div class="stars">
-    <!-- Generar estrellas -->
-    <!-- Cambia el valor de "numStars" según la cantidad de estrellas que desees -->
-    <!-- Cuanto mayor sea el valor, más estrellas habrá -->
+        /* Clase adicional para luna menguante */
+        .moon-background.moon-waning {
+            /* Utilizamos un degradado para aplicar brightness solo a una parte */
+            filter: brightness(1.5);
+            box-shadow: inset -310px 0px 40px 5px rgba(0, 0, 0, 0.9),
+                inset -10px 8px 6px -5px rgba(0, 0, 0, 0.3215686275),
+                -7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+        }
+
+        /* Clase adicional para luna cuarto menguante */
+        .moon-background.moon-last-quarter {
+            /* Utilizamos un degradado para aplicar brightness solo a una parte */
+            filter: brightness(1.5);
+            box-shadow: inset -190px 0px 40px 5px rgba(0, 0, 0, 0.9),
+                inset -10px 8px 6px -5px rgba(0, 0, 0, 0.3215686275),
+                -7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+        }
+
+        /* Clase adicional para luna gibada menguante */
+        .moon-background.moon-waning-humpback {
+            filter: brightness(1.5);
+            box-shadow: inset -110px 0px 40px 5px rgba(0, 0, 0, 0.9),
+                inset -10px 8px 6px -5px rgba(0, 0, 0, 0.3215686275),
+                -7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+        }
+
+        /* Clase adicional para luna llena menguante */
+        .moon-background.moon-full {
+            filter: brightness(1.5);
+            box-shadow: none;
+        }
+
+        /* Clase adicional para luna gibada creciente */
+        .moon-background.moon-crescent-gibbous {
+            filter: brightness(1.5);
+            box-shadow: inset 110px 0px 40px 5px rgba(0, 0, 0, 0.9),
+                inset -10px 8px 6px -5px rgba(0, 0, 0, 0.3215686275),
+                -7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+        }
+
+        /* Clase adicional para luna cuarto creciente */
+        .moon-background.moon-crescent-quarter {
+            filter: brightness(1.5);
+            box-shadow: inset 190px 0px 40px 5px rgba(0, 0, 0, 0.9),
+                inset -10px 8px 6px -5px rgba(0, 0, 0, 0.3215686275),
+                -7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+        }
+
+        /* Clase adicional para luna nueva visible*/
+        .moon-background.moon-visible {
+            filter: brightness(1.5);
+            box-shadow: inset 310px 0px 40px 5px rgba(0, 0, 0, 0.9),
+                inset -10px 8px 6px -5px rgba(0, 0, 0, 0.3215686275),
+                -7px -6px 14px rgba(255, 255, 255, 0.3215686275);
+        }
+
+
+        /* Estilos para las estrellas */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Coloca las estrellas detrás del contenido */
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #E5CDF2;
+            border-radius: 50%;
+            animation: twinkle 1s infinite alternate;
+        }
+
+        /* Animación de parpadeo */
+        @keyframes twinkle {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Estilo para el texto */
+        .moon-text {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Workbench", sans-serif;
+            font-size: 32px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenedor de estrellas -->
+    <div class="stars">
+        <!-- Generar estrellas -->
+        <!-- Cambia el valor de "numStars" según la cantidad de estrellas que desees -->
+        <!-- Cuanto mayor sea el valor, más estrellas habrá -->
+        <script>
+            const numStars = 1000; // Ajusta el número de estrellas
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                starsContainer.appendChild(star);
+            }
+        </script>
+    </div>
+
+    <!-- Luna -->
+    <div class="moon-background"></div>
+
+    <!-- Texto -->
+    <div class="moon-text">LUNA NUEVA</div>
+
+
     <script>
-        const numStars = 1000; // Ajusta el número de estrellas
-        const starsContainer = document.querySelector('.stars');
-        for (let i = 0; i < numStars; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.left = Math.random() * 100 + '%';
-            starsContainer.appendChild(star);
-        }
-    </script>
-</div>
+         var initialCount = 15000;
 
-<!-- Luna -->
-<div class="moon-background"></div>
+        const moon = document.querySelector('.moon-background');
+
+        setTimeout(() => {
+            const moonText = document.querySelector('.moon-text');
+            moonText.textContent = 'LUNA MENGUANTE';
+            moon.classList.add('moon-waning');
+        }, initialCount);
+
+        setTimeout(() => {
+            const moonText = document.querySelector('.moon-text');
+            moonText.textContent = 'LUNA CUARTO MENGUANTE';
+            moon.classList.add('moon-last-quarter');
+        }, initialCount * 2);
+
+        setTimeout(() => {
+            const moonText = document.querySelector('.moon-text');
+            moonText.textContent = 'LUNA GIBADA MENGUANTE';
+            moon.classList.add('moon-waning-humpback');
+        }, initialCount * 3);
+
+        setTimeout(() => {
+            const moonText = document.querySelector('.moon-text');
+            moonText.textContent = 'LUNA LLENA';
+            moon.classList.add('moon-full');
+        }, initialCount * 4);
+
+        setTimeout(() => {
+            const moonText = document.querySelector('.moon-text');
+            moonText.textContent = 'LUNA GIBADA CRECIENTE';
+            moon.classList.add('moon-crescent-gibbous');
+        }, initialCount * 5);
+
+        setTimeout(() => {
+            const moonText = document.querySelector('.moon-text');
+            moonText.textContent = 'LUNA CUARTO CRECIENTE';
+            moon.classList.add('moon-crescent-quarter');
+        }, initialCount * 6);
+
+        setTimeout(() => {
+            const moonText = document.querySelector('.moon-text');
+            moonText.textContent = 'LUNA NUEVA VISIBLE';
+            moon.classList.add('moon-visible');
+        }, initialCount * 7);
+
+    </script>
+
+</body>
+
+</html>
